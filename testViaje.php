@@ -1,7 +1,7 @@
 <?php
 
 include "Viaje.php";
-
+ 
 /**
  * Módulo que muestra un menú y pide una opción por teclado.
  * @return int La opción seleccionada.
@@ -49,6 +49,7 @@ function cantMaximaPasajeros(){
  */
 function datosPasajeros($cantidadMaxima){
     $pasajeros = array();
+    $nroPasajero = 0;
     echo "Cuantos pasajeros va ingresar: ";
     $cantPasajeros = trim(fgets(STDIN));
     $cantPasajeros = validacionEnteroPositivo($cantPasajeros);
@@ -63,10 +64,12 @@ function datosPasajeros($cantidadMaxima){
         $apellido = validacionString($apellido);
         $dni = readline("Ingrese el numero de documento del pasajero: ");
         $dni = validacionEnteroPositivo($dni);
+        $nroPasajero = $nroPasajero + 1;
         $datos_pasajeros = array(
             "Nombre" => $nombre,
             "Apellido" => $apellido,
-            "Numero de Documento" => $dni
+            "Numero de Documento" => $dni,
+            "NroPasajero" => $nroPasajero
         );
         array_push($pasajeros, $datos_pasajeros);
     }
@@ -150,6 +153,7 @@ function cambiarPasajeros($viaje, $cantidadMaxima){
         $opcion = readline("ERROR:Debe ingresar (1) para ingresar todos los pasajeros o (2) para cambiar uno solo: ");
     }
     if($opcion == 1){
+        $nroPasajero = 0;
         $newPasajeros = array();
     echo "Cuantos pasajeros va ingresar: ";
     $cantPasajeros = trim(fgets(STDIN));
@@ -167,16 +171,18 @@ function cambiarPasajeros($viaje, $cantidadMaxima){
         $datos_pasajeros = array(
             "Nombre" => $nombre,
             "Apellido" => $apellido,
-            "Numero de Documento" => $dni
+            "Numero de Documento" => $dni,
+            "NroPasajero" => $nroPasajero
         );
         array_push($newPasajeros, $datos_pasajeros);
     }
     $viaje->setPasajeros($newPasajeros);
     return $viaje;
     }elseif($opcion == 2){
-        print_r($arrayPasajeros);
-        echo "Ingrese el indice del pasajero que desee cambiar: ";
+        echo $viaje . "\n";
+        echo "Ingrese el numero del pasajero que desee cambiar: ";
         $indicePasajero = trim(fgets(STDIN));
+        $indicePasajero = $indicePasajero - 1;
         //$indicePasajero = validacionEnteroPositivo($indicePasajero);
         while($indicePasajero < 0 || $indicePasajero > count($arrayPasajeros)){
             $indicePasajero = readline("ERROR:ingrese un indice valido: ");
@@ -253,8 +259,3 @@ echo "Programa finalizado";
 }
 $respuestaDelMenu = opcionesMenu();
 }
-
-
-
-
-

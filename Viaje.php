@@ -49,7 +49,7 @@ class Viaje{
     //Muestra por pantalla
     public function __toString(){
         return ("Datos del viaje: " . "\n" . "Codigo: " . $this->getCodigo() . "\n" . "Destino: " . $this->getDestino() . "\n" . "Cantidad maxima de pasajeros: " . $this->getCantMax() . "\n" . "Informacion del pasajero: " . "\n" . $this->deArrayAString());
-    }
+    } 
     //Metodo para cambiar el dato segun el indice 
     public function nuevoDato($indicePasajero, $clave, $datoNuevo){
         $this->pasajeros[$indicePasajero][$clave] = $datoNuevo;
@@ -58,7 +58,7 @@ class Viaje{
     private function deArrayAString(){
         $pasajerosString = "";
         foreach($this->pasajeros as $datos){
-            $pasajerosString .="\n" . "Numero del pasajero: " . $datos["N°Pasajero"] . "\n" . "Nombre: " . $datos["Nombre"] . "\n" . "Apellido: " . $datos["Apellido"] . "\n" . "Numero de documento: " . $datos["Numero de Documento"]. "\n";
+            $pasajerosString .= "Numero del pasajero: " . $datos["NroPasajero"] . "\n" . "Nombre: " . $datos["Nombre"] . "\n" . "Apellido: " . $datos["Apellido"] . "\n" . "Numero de documento: " . $datos["Numero de Documento"]. "\n";
         }
         return $pasajerosString;
     }
