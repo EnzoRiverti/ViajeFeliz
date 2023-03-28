@@ -58,7 +58,7 @@ class Viaje{
     private function deArrayAString(){
         $pasajerosString = "";
         foreach($this->pasajeros as $datos){
-            $pasajerosString .= "Numero del pasajero: " . $datos["NroPasajero"] . "\n" . "Nombre: " . $datos["Nombre"] . "\n" . "Apellido: " . $datos["Apellido"] . "\n" . "Numero de documento: " . $datos["Numero de Documento"]. "\n";
+            $pasajerosString .="\n" .  "Numero del pasajero: " . $datos["NroPasajero"] . "\n" . "Nombre: " . $datos["Nombre"] . "\n" . "Apellido: " . $datos["Apellido"] . "\n" . "Numero de documento: " . $datos["Numero de Documento"]. "\n";
         }
         return $pasajerosString;
     }
@@ -77,4 +77,3 @@ public function setDni($indicePasajero, $nuevoDato){
 
 
 }
-

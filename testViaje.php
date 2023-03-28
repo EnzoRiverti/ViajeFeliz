@@ -147,10 +147,10 @@ function cambiarCantMax($viaje, $cantPasajeros){
  */
 function cambiarPasajeros($viaje, $cantidadMaxima){
     $arrayPasajeros = $viaje->getPasajeros();
-    $opcion = readline("(1)Desea ingresar todos los pasajeros de 0 o (2) desea cambiar un pasajero: ");
+    $opcion = readline("(1)Desea ingresar todos los pasajeros de 0 , (2) desea cambiar un pasajero o (3) agregar un pasajero: ");
     $opcion = validacionEnteroPositivo($opcion);
-    while($opcion != 1 && $opcion != 2){
-        $opcion = readline("ERROR:Debe ingresar (1) para ingresar todos los pasajeros o (2) para cambiar uno solo: ");
+    while($opcion != 1 && $opcion != 2 && $opcion != 3){
+        $opcion = readline("ERROR:Debe ingresar (1) para ingresar todos los pasajeros, (2) para cambiar uno solo (3) agregar un pasajero: ");
     }
     if($opcion == 1){
         $nroPasajero = 0;
@@ -168,6 +168,7 @@ function cambiarPasajeros($viaje, $cantidadMaxima){
         $apellido = validacionString($apellido);
         $dni = readline("Ingrese el numero de documento del pasajero: ");
         $dni = validacionEnteroPositivo($dni);
+        $nroPasajero = $nroPasajero + 1;
         $datos_pasajeros = array(
             "Nombre" => $nombre,
             "Apellido" => $apellido,
@@ -205,6 +206,34 @@ function cambiarPasajeros($viaje, $cantidadMaxima){
             $viaje->setDni($indicePasajero, $newDato);
         }
            return $viaje;
+    }elseif($opcion == 3){
+        $nroPasajero = count($arrayPasajeros);
+        $cantidadAgregable = ($cantidadMaxima - $nroPasajero);
+        echo "Ingrese cuantos pasajeros desea agregar: ";
+        $cantPasajeros = trim(fgets(STDIN));
+        while($cantPasajeros > $cantidadAgregable){
+            echo "La cantidad de pasajeros no puede ser mayor a la cantidad maxima del viaje. Se pueden agregar maximo " . $cantidadAgregable . "Ingrese una cantidad valida: ";
+            $cantPasajeros = trim(fgets(STDIN));
+        }
+        for($i = 1;$i <= $cantPasajeros;$i++){
+            $nombre = readline("Ingrese el nombre del pasajero: ");
+            $nombre = validacionString($nombre);
+            $apellido = readline("Ingrese el apellido del pasajero: ");
+            $apellido = validacionString($apellido);
+            $dni = readline("Ingrese el numero de documento del pasajero: ");
+            $dni = validacionEnteroPositivo($dni);
+            $nroPasajero = $nroPasajero + 1;
+            $datos_pasajeros = array(
+                "Nombre" => $nombre,
+                "Apellido" => $apellido,
+                "Numero de Documento" => $dni,
+                "NroPasajero" => $nroPasajero
+            );
+            
+            $arrayPasajeros[$nroPasajero] = $datos_pasajeros;
+        }
+        $viaje->setPasajeros($arrayPasajeros);
+        return $viaje;
     }
     
 }
